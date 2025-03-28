@@ -59,7 +59,7 @@ const Footer = () => {
                 className="text-2xl font-bold tracking-tight text-white"
                 variants={sectionVariants}
               >
-                RoommateFinder
+                RoomRentSync
               </motion.span>
             </motion.div>
             <motion.p

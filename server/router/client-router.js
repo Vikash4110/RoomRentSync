@@ -17,6 +17,10 @@ const {
   getRoommateRequests,
   updateProfile
 } = require("../controllers/client-controller");
+const { 
+  getMessagesBetweenUsers,
+  getConversations
+} = require("../controllers/message-controllers");
 const { authMiddleware, clientOnlyMiddleware, validate } = require("../middlewares/client-middleware"); // Updated imports
 const { registerSchema, loginSchema } = require("../validators/client-validator");
 
@@ -36,5 +40,10 @@ router.post("/handle-roommate-request", clientOnlyMiddleware, handleRoommateRequ
 router.get("/connected-roommates", clientOnlyMiddleware, getConnectedRoommates);
 router.get("/roommate-requests", clientOnlyMiddleware, getRoommateRequests); // New route
 router.put("/profile", clientOnlyMiddleware, updateProfile); // New route
+
+// Add new message routes
+router.get("/conversations", clientOnlyMiddleware, getConversations);
+router.get("/messages/:userId1/:userId2", clientOnlyMiddleware, getMessagesBetweenUsers);
+
 
 module.exports = router;

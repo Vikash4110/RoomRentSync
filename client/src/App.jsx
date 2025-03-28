@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./Store/auth";
-// import Register from "./Pages/CounselorRegister";
-// import Login from "./Pages/CounselorLogin";
-// import Application from "./Pages/CouselorApplication";
-// import Profile from "./Pages/CounselorProfile";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Navbar from "./Components/Navbar";
@@ -26,6 +22,10 @@ import NewLandlordProfile from './Components/LandProfileMain';
 import LandlordRequests from './Components/LandlordRequests';
 import LandlordConnectedClients from './Components/LandlordConnectedClients';
 import ClientConnectedLandlords from './Components/ClientConnectedLandlords';
+import MessagePage from './Pages/MessagePage';
+import ConnectedRoommates from './Components/ConnectedRoommates';
+
+import { SocketProvider } from './context/SocketContext';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false); // Start false, update based on session
@@ -47,6 +47,7 @@ function App() {
 
   return (
     <AuthProvider>
+        <SocketProvider>
       {isLoading && <Loader />}
       <div className={`${isLoading ? "hidden" : "block"}`}>
         <Navbar />
@@ -70,9 +71,14 @@ function App() {
           <Route path="/property-detail/:propertyId" element={<PropertyDetail />} />
           <Route path="/property-detail-main/:propertyId" element={<PropertyDetMain />} />
           <Route path="/landlord/:landlordId" element={<NewLandlordProfile />} /> 
+
+          <Route path="/messages" element={<MessagePage />} />
+      <Route path="/messages/:roommateId" element={<MessagePage />} />
+      <Route path="/roommates" element={<ConnectedRoommates />} />
       
         </Routes>
       </div>
+      </SocketProvider>
     </AuthProvider>
   );
 }
